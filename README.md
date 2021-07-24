@@ -1,6 +1,6 @@
 # Pong
-Quick Pong game i made. Saves high scores too!&nbsp
-NELLIE PONG V2 IS NOW AVAILIBLE! DOWNLOAD NOW :D!&nbsp
+Quick Pong game i made. Saves high scores too!  
+NELLIE PONG V2 IS NOW AVAILIBLE! DOWNLOAD NOW :D!  
 CHANGELOG:&nbsp
 -Added two boost types. 
 -The Boost which increases your speed by 2!
