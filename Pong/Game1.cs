@@ -114,6 +114,7 @@ namespace Pong
                 ballSpeed.X = 150;
                 ballSpeed.Y = 150;
                 point = 0;
+                displaySpeed = 1;
             }
 
             if (paddlePosition.X < screenWidth || paddlePosition.X > 0)
