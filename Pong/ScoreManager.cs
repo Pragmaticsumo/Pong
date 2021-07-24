@@ -11,7 +11,7 @@ namespace Pong
 {
     public class ScoreManager
     {
-        private static string _fileName = "scores.xml"; // Since we don't give a path, this'll be saved in the "bin" folder
+        private static string _fileName = "scores.xml";
 
         public List<Score> Highscores { get; private set; }
 
@@ -34,18 +34,15 @@ namespace Pong
         {
             Scores.Add(score);
 
-            Scores = Scores.OrderByDescending(c => c.Value).ToList(); // Orders the list so that the higher scores are first
+            Scores = Scores.OrderByDescending(c => c.Value).ToList();
 
             UpdateHighscores();
         }
 
         public static ScoreManager Load()
         {
-            // If there isn't a file to load - create a new instance of "ScoreManager"
             if (!File.Exists(_fileName))
                 return new ScoreManager();
-
-            // Otherwise we load the file
 
             using (var reader = new StreamReader(new FileStream(_fileName, FileMode.Open)))
             {
@@ -59,7 +56,7 @@ namespace Pong
 
         public void UpdateHighscores()
         {
-            Highscores = Scores.Take(1).ToList(); // Takes the first 5 elements
+            Highscores = Scores.Take(1).ToList();
         }
 
         public static void Save(ScoreManager scoreManager)

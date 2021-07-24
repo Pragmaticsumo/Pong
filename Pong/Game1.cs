@@ -28,6 +28,7 @@ namespace Pong
         Vector2 paddlePosition;
 
         int point;
+        int displaySpeed = 1;
 
         private ScoreManager _scoreManager;
 
@@ -119,7 +120,16 @@ namespace Pong
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight))
                 {
-                    paddlePosition.X += 6;
+                    paddlePosition.X += 8;
+                    if(Keyboard.GetState().IsKeyDown(Keys.P) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Y))
+                    {
+                        paddlePosition.X += 10;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.L) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.X))
+                    {
+                        paddlePosition.X += 20;
+                    }
+
                     if (paddlePosition.X > screenWidth)
                     {
                         paddlePosition.X = screenWidth;
@@ -127,7 +137,16 @@ namespace Pong
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft))
                 {
-                    paddlePosition.X -= 6;
+                    paddlePosition.X -= 8;
+                    if (Keyboard.GetState().IsKeyDown(Keys.P) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Y))
+                    {
+                        paddlePosition.X -= 10;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.L) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.X))
+                    {
+                        paddlePosition.X -= 20;
+                    }
+
                     if (paddlePosition.X < 0)
                     {
                         paddlePosition.X = 0;
@@ -140,12 +159,16 @@ namespace Pong
                 point++;
                 soundEffects[0].CreateInstance().Play();
 
-                ballSpeed.Y += 7;
+                if (ballSpeed.X != 500)
+                {
+                    displaySpeed++;
+                    ballSpeed.Y += 7;
 
-                if (ballSpeed.X < 0)
-                    ballSpeed.X -= 7;
-                else
-                    ballSpeed.X += 7;
+                    if (ballSpeed.X < 0)
+                        ballSpeed.X -= 7;
+                    else
+                        ballSpeed.X += 7;
+                }
 
                 ballSpeed.Y *= -1;
                 ballPosition.Y = paddleRect.Y - 53;
@@ -165,8 +188,11 @@ namespace Pong
             _spriteBatch.Draw(paddleSprite, paddlePosition, Color.White);
 
             _spriteBatch.DrawString(font, "PRESS ESC KEY/B BUTTON TO QUIT", new Vector2(0, 0), Color.White);
-            _spriteBatch.DrawString(font, "\nPOINTS: " + point, new Vector2(0, 0), Color.White);
-            _spriteBatch.DrawString(font, "\n\nHIGHSCORE: " + string.Join("\n", _scoreManager.Highscores.Select(c => c.Value).ToArray()), new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(font, "\nHOLD P KEY/Y BUTTON TO BOOST", new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(font, "\n\nHOLD L KEY/X BUTTON TO TURBO BOOST", new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(font, "\n\n\nPOINTS: " + point, new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(font, "\n\n\n\nHIGHSCORE: " + string.Join("\n", _scoreManager.Highscores.Select(c => c.Value).ToArray()), new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(font, "\n\n\n\n\nBALL SPEED: " + displaySpeed, new Vector2(0, 0), Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
