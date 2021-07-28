@@ -56,12 +56,11 @@ namespace Pong
 
         public void UpdateHighscores()
         {
-            Highscores = Scores.Take(1).ToList();
+            Highscores = Scores.Take(3).ToList();
         }
 
         public static void Save(ScoreManager scoreManager)
         {
-            // Overrides the file if it alreadt exists
             using (var writer = new StreamWriter(new FileStream(_fileName, FileMode.Create)))
             {
                 var serilizer = new XmlSerializer(typeof(List<Score>));
