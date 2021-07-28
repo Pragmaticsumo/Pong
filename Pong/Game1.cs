@@ -142,6 +142,11 @@ namespace Pong
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
+                    _scoreManager.Add(new Score()
+                    {
+                        Value = point,
+                    }
+           );
                     gameState = GameState.StartMenu;
                     MediaPlayer.Stop();
                     MediaPlayer.IsRepeating = true;
